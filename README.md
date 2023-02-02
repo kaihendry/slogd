@@ -9,10 +9,17 @@ Inspired by @[tj](https://github.com/tj)'s [Apex logs's Trace function](https://
 
       {"fields":{"app":"myapp","env":"prod","path":"Readme.md"},"level":"info","timestamp":"2023-02-02T15:36:57.222212167+08:00","message":"opening"}
       {"fields":{"app":"myapp","duration":0,"env":"prod","path":"Readme.md"},"level":"info","timestamp":"2023-02-02T15:36:57.22255411+08:00","message":"opening"}
-      
+
 ## [gotrace example](https://github.com/kaihendry/slogfest)
 
-`defer gotrace.Trace("opening").Stop(&err)`
+Sample code:
 
-      {"time":"2023-02-02T15:38:59.809167038+08:00","level":"INFO","msg":"opening"}
-      {"time":"2023-02-02T15:38:59.812722686+08:00","level":"INFO","msg":"opening","duration":3}
+    slog.SetDefault(slog.New(slog.NewJSONHandler(os.Stdout)))
+    var err error
+    defer gotrace.Trace("fetching").Stop(&err)
+    _, err = http.Get("https://httpbin.org/delay/2")
+
+Sample output:
+
+    {"time":"2023-02-02T15:58:42.77263618+08:00","level":"INFO","msg":"fetching"}
+    {"time":"2023-02-02T15:58:45.686097016+08:00","level":"INFO","msg":"fetching","duration":2913}
