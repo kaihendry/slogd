@@ -14,12 +14,13 @@ Inspired by @[tj](https://github.com/tj)'s [Apex logs's Trace function](https://
 
 Sample code:
 
-    slog.SetDefault(slog.New(slog.NewJSONHandler(os.Stdout)))
+    url := "https://httpbin.org/delay/2"
     var err error
-    defer gotrace.Trace("fetching").Stop(&err)
-    _, err = http.Get("https://httpbin.org/delay/2")
+    defer gotrace.Trace("fetching", "url", url).Stop(err)
+    _, err = http.Get(url)
+
 
 Sample output:
 
-    {"time":"2023-02-02T15:58:42.77263618+08:00","level":"INFO","msg":"fetching"}
-    {"time":"2023-02-02T15:58:45.686097016+08:00","level":"INFO","msg":"fetching","duration":2913}
+    {"time":"2023-02-03T09:43:44.119624513+08:00","level":"INFO","msg":"fetching","url":"https://httpbin.org/delay/2"}
+    {"time":"2023-02-03T09:43:47.140962918+08:00","level":"INFO","msg":"fetching","duration":3021276456}
