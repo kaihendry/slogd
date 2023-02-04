@@ -6,13 +6,13 @@ import (
 	"golang.org/x/exp/slog"
 )
 
-type traceEntry struct {
+type TraceEntry struct {
 	Record    slog.Record
 	StartedAt time.Time
 }
 
-func Trace(msg string, args ...any) traceEntry {
-	var v traceEntry
+func New(msg string, args ...any) TraceEntry {
+	var v TraceEntry
 	slog.Info(msg, args...)
 	v.Record.Message = msg
 	// it doesn't seem trivial to pass args into Record?
@@ -21,7 +21,7 @@ func Trace(msg string, args ...any) traceEntry {
 	return v
 }
 
-func (v traceEntry) Stop(err error) {
+func (v TraceEntry) Stop(err error) {
 	if err == nil {
 		// I'm using slog.Duration, though I can't make sense of the output. Prefer just milliseconds.
 		// sidenote: maybe i should override to level = trace?
