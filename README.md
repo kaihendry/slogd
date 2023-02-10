@@ -15,7 +15,7 @@ Sample code:
     slog.SetDefault(slog.New(slog.NewTextHandler(os.Stdout)))
     url := "https://httpbin.org/delay/2"
     var err error
-    defer slogd.New("fetching", "url", url).Stop(err)
+    defer slogd.New("fetching", "url", url).Stop(&err)
     _, err = http.Get(url)
 
 Sample output:
