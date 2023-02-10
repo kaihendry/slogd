@@ -20,11 +20,11 @@ func New(msg string, args ...any) slogd {
 	return v
 }
 
-func (v slogd) Stop(err error) {
+func (v slogd) Stop(err *error) {
 	v.args = append(v.args, slog.Duration("duration", time.Duration(time.Since(v.startedAt))))
-	if err == nil {
+	if err == nil || *err == nil {
 		slog.Info(v.message, v.args...)
 	} else {
-		slog.Error(v.message, err, v.args...)
+		slog.Error(v.message, *err, v.args...)
 	}
 }
