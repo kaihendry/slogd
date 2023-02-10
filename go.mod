@@ -1,5 +1,5 @@
-module github.com/kaihendry/gotrace
+module github.com/kaihendry/slogd
 
-go 1.20
+go 1.19
 
-require golang.org/x/exp v0.0.0-20230131160201-f062dba9d201
+require golang.org/x/exp v0.0.0-20230206171751-46f607a40771
